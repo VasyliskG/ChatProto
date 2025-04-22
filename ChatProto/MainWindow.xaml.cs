@@ -1,0 +1,120 @@
+﻿using System;
+using ChatProto.Helpers;
+using ChatProto.Pages;
+using ChatProto.Services;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Animation;
+
+namespace ChatProto;
+
+public sealed partial class MainWindow : Window
+{
+    public MainWindow()
+    {
+        this.InitializeComponent();
+    }
+
+    public void InitializeTitleBar()
+    {
+        Window window = App.MainWindow;
+        window.ExtendsContentIntoTitleBar = true;
+        window.SetTitleBar(AppTitleBar);
+
+        var appWindowPresenter = this.AppWindow?.Presenter as Microsoft.UI.Windowing.OverlappedPresenter;
+        if (appWindowPresenter != null)
+        {
+            appWindowPresenter.PreferredMinimumHeight = 600;
+            appWindowPresenter.PreferredMinimumWidth = 800;
+        }
+    }
+
+    private void NavigationPane_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    {
+        if (args.SelectedItem is NavigationViewItem selectedItem)
+        {
+            string pageTad = selectedItem.Tag.ToString()!;
+            switch (pageTad)
+            {
+                case "Help":
+                    var uri = new Uri("https://google.com");
+                    Windows.System.Launcher.LaunchUriAsync(uri);
+                    break;
+                case "Menu":
+                    if (Sidebar.Visibility == Visibility.Collapsed)
+                    {
+                        Sidebar.Visibility = Visibility.Visible;
+                        var showStoryboard = (Storyboard)MainGrid.Resources["ShowSidebarAnimation"];
+                        showStoryboard.Begin();
+
+                        var expandSidebarAnimation = (Storyboard)MainGrid.Resources["ExpandSidebarAnimation"];
+                        expandSidebarAnimation.Begin();
+                    }
+                    else
+                    {
+                        var hideStoryboard = (Storyboard)MainGrid.Resources["HideSidebarAnimation"];
+                        var collapseSidebarAnimation = (Storyboard)MainGrid.Resources["CollapseSidebarAnimation"];
+
+                        hideStoryboard.Begin();
+                        collapseSidebarAnimation.Begin();
+
+                        hideStoryboard.Completed += (s, ev) =>
+                        {
+                            Sidebar.Visibility = Visibility.Collapsed;
+                        };
+                    }
+
+                    break;
+                case "ChatPage":
+                    ContentFrame.Navigate(typeof(ChatPage));
+                    break;
+            }
+            sender.SelectedItem = null;
+        }
+    }
+
+    private void SettingButton_GettingFocus(UIElement sender, Microsoft.UI.Xaml.Input.GettingFocusEventArgs args)
+    {
+        if (ContentFrame.Content is SettingPage) return;
+
+        ContentFrame.Navigate(typeof(SettingPage));
+    }
+
+    private void LoginButton_GettingFocus(UIElement sender, Microsoft.UI.Xaml.Input.GettingFocusEventArgs args)
+    {
+        if (ContentFrame.Content is RegisterPage) return;
+
+        ContentFrame.Navigate(typeof(RegisterPage));
+    }
+
+    public void ChangeЦindowЕheme(string newTheme)
+    {
+        if (newTheme == "Light")
+        {
+            AppSettings.Current.CurrentTheme = ElementTheme.Light;
+            if (App.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.MainGrid.RequestedTheme = ElementTheme.Light;
+                UIHelper.RefreshAllButtons(mainWindow.MainGrid);
+            }
+        }
+        else if (newTheme == "Dark")
+        {
+            AppSettings.Current.CurrentTheme = ElementTheme.Dark;
+            if (App.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.MainGrid.RequestedTheme = ElementTheme.Dark;
+                UIHelper.RefreshAllButtons(mainWindow.MainGrid);
+            }
+        }
+        else
+        {
+            AppSettings.Current.CurrentTheme = ElementTheme.Light;
+            if (App.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.MainGrid.RequestedTheme = ElementTheme.Light;
+                UIHelper.RefreshAllButtons(mainWindow.MainGrid);
+            }
+        }
+    } 
+}

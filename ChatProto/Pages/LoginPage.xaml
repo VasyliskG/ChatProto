@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ChatProto.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChatProto.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel
+        MaxWidth="400"
+        Padding="32"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Spacing="16">
+        <TextBlock
+    x:Name="TitleText"
+    x:Uid="LoginPage_Title"
+    Margin="0,0,0,20"
+    HorizontalAlignment="Center"
+    Style="{StaticResource TitleTextBlockStyle}" />
+
+        <TextBox
+    x:Name="UsernameTextBox"
+    x:Uid="LoginPage_UsernameTextBox" />
+
+        <TextBlock
+    x:Name="UsernameErrorTextBlock"
+    x:Uid="LoginPage_UsernameErrorTextBlock"
+    Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+    Style="{StaticResource CaptionTextBlockStyle}"
+    Visibility="Collapsed" />
+
+        <PasswordBox
+    x:Name="InputPasswordBox"
+    x:Uid="LoginPage_InputPasswordBox"/>
+
+        <TextBlock
+    x:Name="InputPasswordErrorTextBlock"
+    x:Uid="LoginPage_InputPasswordErrorTextBlock"
+    Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+    Style="{StaticResource CaptionTextBlockStyle}"
+    Visibility="Collapsed" />
+
+        <TextBlock
+    x:Name="LoginErrorTextBlock"
+    x:Uid="LoginPage_LoginErrorTextBlock"
+    Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+    Style="{StaticResource CaptionTextBlockStyle}"
+    Visibility="Collapsed" />
+
+        <Button
+    x:Name="LoginButton"
+    x:Uid="LoginPage_LoginButton"
+    Margin="0,10,0,0"
+    HorizontalAlignment="Stretch"
+    Click="LoginButton_Click" />
+
+        <HyperlinkButton
+    x:Name="RegisterLink"
+    x:Uid="LoginPage_RegisterLink"
+    HorizontalAlignment="Center"
+    Click="RegisterLink_Click" />
+
+    </StackPanel>
+</Page>

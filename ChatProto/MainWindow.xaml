@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="ChatProto.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChatProto"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Custom Title Bar">
+
+    <Grid x:Name="MainGrid">
+        <Grid.Resources>
+            <Storyboard x:Key="ShowSidebarAnimation">
+                <DoubleAnimation
+                Storyboard.TargetName="SidebarTransform"
+                Storyboard.TargetProperty="X"
+                From="-300" To="0"
+                Duration="0:0:0.5" />
+            </Storyboard>
+
+            <Storyboard x:Key="HideSidebarAnimation">
+                <DoubleAnimation
+                Storyboard.TargetName="SidebarTransform"
+                Storyboard.TargetProperty="X"
+                From="0" To="-300"
+                Duration="0:0:0.5" />
+            </Storyboard>
+
+            <Storyboard x:Key="ExpandSidebarAnimation">
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SidebarColumn" Storyboard.TargetProperty="Width">
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                        <DiscreteObjectKeyFrame.Value>
+                            <GridLength>200</GridLength>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <Storyboard x:Key="CollapseSidebarAnimation">
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SidebarColumn" Storyboard.TargetProperty="Width">
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                        <DiscreteObjectKeyFrame.Value>
+                            <GridLength>0</GridLength>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border x:Name="AppTitleBar" Grid.Row="0" VerticalAlignment="Top">
+            <TextBlock x:Name="AppTitle" VerticalAlignment="Top" Margin="0,8,0,0" />
+        </Border>
+
+        <NavigationView x:Name="NavigationPane" 
+                        PaneDisplayMode="Top" 
+                        IsSettingsVisible="False" 
+                        IsBackButtonVisible="Collapsed"
+                        SelectionChanged="NavigationPane_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Help" Tag="Help"/>
+                <NavigationViewItem Icon="List" Tag="Menu" />
+                <NavigationViewItem Content="ChatProto" Icon="Comment" Tag="ChatPage" />
+            </NavigationView.MenuItems>
+        </NavigationView>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="SidebarColumn" Width="0" />
+                <ColumnDefinition x:Name="ContentColumn" Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="Sidebar" Grid.Column="0" Background="LightGray" Visibility="Collapsed">
+                <Grid.RenderTransform>
+                    <TranslateTransform x:Name="SidebarTransform" X="-300" />
+                </Grid.RenderTransform>
+
+                <TextBlock x:Name="ChatHistoriTextBlock" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    FontSize="14" 
+                    TextWrapping="Wrap">
+                    <Run x:Uid="ChatHistoryTitle" FontSize="16"/>
+                        <LineBreak />
+                    <Run x:Uid="ChatHistoryDescription" />
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Button x:Name="LoginButton" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Bottom" GettingFocus="LoginButton_GettingFocus">
+                        <FontIcon Glyph="&#xE77B;" />
+                    </Button>
+                    <Button x:Name="RegisterButton" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Bottom" GettingFocus="SettingButton_GettingFocus">
+                        <FontIcon Glyph="&#xE713;" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Frame x:Name="ContentFrame" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        </Grid>
+    </Grid>
+</Window>

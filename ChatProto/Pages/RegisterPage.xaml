@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ChatProto.Pages.RegisterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChatProto.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel
+            Width="400"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="16">
+            <TextBlock
+                x:Name="TitleText"
+                x:Uid="RegisterPage_TitleText"
+                Margin="0,0,0,20"
+                HorizontalAlignment="Center"
+                Style="{StaticResource TitleTextBlockStyle}" />
+
+            <TextBox
+                x:Name="UsernameTextBox"
+                x:Uid="RegisterPage_UsernameTextBox" />
+            <TextBlock
+                x:Name="UsernameErrorTextBlock"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Visibility="Collapsed" />
+
+            <TextBox
+                x:Name="EmailTextBox"
+                x:Uid="RegisterPage_EmailTextBox" />
+            <TextBlock
+                x:Name="EmailErrorTextBlock"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Visibility="Collapsed" />
+
+            <TextBox
+                x:Name="FullNameTextBox"
+                x:Uid="RegisterPage_FullNameTextBox" />
+            <TextBlock
+                x:Name="FullNameErrorTextBlock"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Visibility="Collapsed" />
+
+            <PasswordBox
+                x:Name="InputPasswordBox"
+                x:Uid="RegisterPage_InputPasswordBox" />
+            <TextBlock
+                x:Name="InputPasswordErrorTextBlock"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Visibility="Collapsed" />
+
+            <PasswordBox
+                x:Name="ConfirmPasswordBox"
+                x:Uid="RegisterPage_ConfirmPasswordBox" />
+            <TextBlock
+                x:Name="ConfirmPasswordErrorTextBlock"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Visibility="Collapsed" />
+
+            <TextBlock
+                x:Name="RegisterErrorTextBlock"
+                x:Uid="RegisterPage_RegisterErrorTextBlock"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Visibility="Collapsed" />
+
+            <Button
+                x:Name="RegisterButton"
+                x:Uid="RegisterPage_RegisterButton"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Stretch"
+                Click="RegisterButton_Click" />
+
+            <HyperlinkButton
+                x:Name="LoginLink"
+                x:Uid="RegisterPage_LoginLink"
+                HorizontalAlignment="Center"
+                Click="LoginLink_Click" />
+
+        </StackPanel>
+    </Grid>
+</Page>
