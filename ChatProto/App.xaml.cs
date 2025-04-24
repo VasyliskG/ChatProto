@@ -5,6 +5,7 @@ namespace ChatProto;
 public partial class App : Application
 {
     public static AuthService AuthService { get; private set; } = null!;
+
     public static MainWindow MainWindow { get; private set; } = null!;
 
     public App()
@@ -13,6 +14,9 @@ public partial class App : Application
         AuthService = new AuthService();
     }
 
+    /// <summary>
+    /// Виконується при запуску програми.
+    /// </summary>
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
         if (string.IsNullOrEmpty(Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride))

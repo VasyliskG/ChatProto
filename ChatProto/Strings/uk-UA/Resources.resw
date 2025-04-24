@@ -190,7 +190,7 @@
     <value>Ім'я користувача не може бути порожнім</value>
   </data>
   <data name="RegisterPage_FullNameErrorTextBlock" xml:space="preserve">
-    <value>Ім'я не може бути порожнім</value>
+    <value>Повне ім'я не може бути порожнім</value>
   </data>
   <data name="RegisterPage_RegisterErrorTextBlock" xml:space="preserve">
     <value>Реєстрація не вдалася. Будь ласка, спробуйте ще раз.</value>
@@ -236,5 +236,8 @@
   </data>
   <data name="RegisterPage_ConfirmPasswordBox.PlaceholderText" xml:space="preserve">
     <value>Підтвердьте свій пароль</value>
+  </data>
+  <data name="MainTextTitle.Content" xml:space="preserve">
+    <value>Привіт, чим я можу тобі допомогти?</value>
   </data>
 </root>

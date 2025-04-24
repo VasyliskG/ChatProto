@@ -15,6 +15,9 @@ public sealed partial class MainWindow : Window
         this.InitializeComponent();
     }
 
+    /// <summary>
+    /// Ініціалізація заголовка вікна.
+    /// </summary>
     public void InitializeTitleBar()
     {
         Window window = App.MainWindow;
@@ -29,6 +32,9 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Обробка події зміни вибору елемента в навігаційній панелі.
+    /// </summary>
     private void NavigationPane_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.SelectedItem is NavigationViewItem selectedItem)
@@ -69,10 +75,14 @@ public sealed partial class MainWindow : Window
                     ContentFrame.Navigate(typeof(ChatPage));
                     break;
             }
+
             sender.SelectedItem = null;
         }
     }
 
+    /// <summary>
+    /// Обробка події кнопки "Налаштувань".
+    /// </summary>
     private void SettingButton_GettingFocus(UIElement sender, Microsoft.UI.Xaml.Input.GettingFocusEventArgs args)
     {
         if (ContentFrame.Content is SettingPage) return;
@@ -80,6 +90,9 @@ public sealed partial class MainWindow : Window
         ContentFrame.Navigate(typeof(SettingPage));
     }
 
+    /// <summary>
+    /// Обробка події кнопки "Акаунту".
+    /// </summary>
     private void LoginButton_GettingFocus(UIElement sender, Microsoft.UI.Xaml.Input.GettingFocusEventArgs args)
     {
         if (ContentFrame.Content is RegisterPage) return;
@@ -87,7 +100,11 @@ public sealed partial class MainWindow : Window
         ContentFrame.Navigate(typeof(RegisterPage));
     }
 
-    public void ChangeЦindowЕheme(string newTheme)
+    /// <summary>
+    /// Змініа теми вікна.
+    /// </summary>
+    /// <param name="newTheme">Тема.</param>
+    public void ChangeWindowTheme(string newTheme)
     {
         if (newTheme == "Light")
         {
@@ -116,5 +133,15 @@ public sealed partial class MainWindow : Window
                 UIHelper.RefreshAllButtons(mainWindow.MainGrid);
             }
         }
-    } 
+    }
+
+    /// <summary>
+    /// Обробка події кнопки "Чат".
+    /// </summary>
+    private void ContentTitle_Click(object sender, RoutedEventArgs e)
+    {
+        if (ContentFrame.Content is ChatPage) return;
+
+        ContentFrame.Navigate(typeof(ChatPage));
+    }
 }

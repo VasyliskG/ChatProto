@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using ChatProto.Models;
 using Microsoft.Windows.ApplicationModel.Resources;
+using ChatProto.Services;
 
 namespace ChatProto.Pages;
 
@@ -23,11 +12,11 @@ public sealed partial class RegisterPage : Page
     public RegisterPage()
     {
         this.InitializeComponent();
-
-        // Ініціалізація теми
-        //ThemeHelper.Initialize(this);
     }
 
+    /// <summary>
+    /// Обробляє подію натискання кнопки "Зареєструватись".
+    /// </summary>
     private void RegisterButton_Click(object sender, RoutedEventArgs e)
     {
         // Очистити попередні повідомлення про помилки
@@ -106,17 +95,30 @@ public sealed partial class RegisterPage : Page
         );
 
         if (App.AuthService.Register(newUser))
+        {
+            App.AuthService.SaveUsers();
             Frame.Navigate(typeof(ChatPage));
+        }
         else
+        {
             RegisterErrorTextBlock.Visibility = Visibility.Visible;
+        }
     }
 
+    /// <summary>
+    /// Перевіряє, чи є текст дійсною електронною адресою.
+    /// </summary>
+    /// <param name="text">Введена користувачем пошта.</param>
+    /// <returns>true якщо пошта відповідає вимогам, та false якщо ні.</returns>
     private bool IsValidEmail(string text)
     {
         string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
         return Regex.IsMatch(text, pattern);
     }
 
+    /// <summary>
+    /// Обробляє подію натискання кнопки "Переходу на сторінку входу".
+    /// </summary>
     private void LoginLink_Click(object sender, RoutedEventArgs e)
     {
         Frame.Navigate(typeof(LoginPage));

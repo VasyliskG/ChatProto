@@ -10,6 +10,10 @@ namespace ChatProto.Pages
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// Обробляє подію натискання кнопки "Увійти".
+        /// </summary>
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             // Очистити попередні повідомлення про помилки
@@ -21,12 +25,15 @@ namespace ChatProto.Pages
 
             var resourceLoader = new ResourceLoader();
 
+            // Перевірка наявності імені користувача
             if (string.IsNullOrWhiteSpace(UsernameTextBox.Text))
             {
                 UsernameErrorTextBlock.Text = resourceLoader.GetString("UsernameEmptyError");
                 UsernameErrorTextBlock.Visibility = Visibility.Visible;
                 isValid = false;
             }
+
+            // Перевірка наявності пароля
             if (string.IsNullOrWhiteSpace(InputPasswordBox.Password))
             {
                 InputPasswordErrorTextBlock.Text = resourceLoader.GetString("PasswordEmptyError");
@@ -46,6 +53,9 @@ namespace ChatProto.Pages
             }
         }
 
+        /// <summary>
+        /// Обробляє подію натискання кнопки "Переходу на сторінку реєстрації".
+        /// </summary>
         private void RegisterLink_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(RegisterPage));

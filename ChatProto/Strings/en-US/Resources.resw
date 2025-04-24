@@ -237,4 +237,7 @@
   <data name="RegisterPage_ConfirmPasswordBox.PlaceholderText" xml:space="preserve">
     <value>Confirm your password</value>
   </data>
+  <data name="MainTextTitle.Content" xml:space="preserve">
+    <value>Hello, can I help you?</value>
+  </data>
 </root>

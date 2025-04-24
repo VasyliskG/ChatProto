@@ -74,7 +74,7 @@
                 <ColumnDefinition x:Name="ContentColumn" Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="Sidebar" Grid.Column="0" Background="LightGray" Visibility="Collapsed">
+            <Grid x:Name="Sidebar" Grid.Column="0" Background="Gray" Visibility="Collapsed">
                 <Grid.RenderTransform>
                     <TranslateTransform x:Name="SidebarTransform" X="-300" />
                 </Grid.RenderTransform>
@@ -102,6 +102,11 @@
                         <FontIcon Glyph="&#xE713;" />
                     </Button>
                 </StackPanel>
+            </Grid>
+            <Grid x:Name="ContentArea" Grid.Column="1">
+                <Border x:Name="ContentBorder" Background="LightGray" Margin="10" Padding="8">
+                    <HyperlinkButton x:Name="ContentTitle" x:Uid="MainTextTitle" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContentTitle_Click"/>
+                </Border>
             </Grid>
             <Frame x:Name="ContentFrame" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
         </Grid>
