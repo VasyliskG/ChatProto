@@ -97,6 +97,9 @@ public sealed partial class RegisterPage : Page
         if (App.AuthService.Register(newUser))
         {
             App.AuthService.SaveUsers();
+            App.MainWindowRef.IsUserLoggedIn = true;
+           // App.MainWindowRef.ChatHistoriTextBlock.Visibility = Visibility.Collapsed;
+           // App.MainWindowRef.ChatHistoriGrid.Visibility = Visibility.Visible;
             Frame.Navigate(typeof(ChatPage));
         }
         else

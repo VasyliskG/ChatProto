@@ -1,85 +1,52 @@
-﻿using System;
-using ChatProto.UserControl;
+﻿using ChatProto.UserControl;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Windows.ApplicationModel.Resources;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace ChatProto.Pages
+namespace ChatProto.Pages;
+
+public sealed partial class ChatPage : Page
 {
-    /// <summary>
-    /// Логіка взаємодії ChatPage.xaml.
-    /// </summary>
-    public sealed partial class ChatPage : Page
+
+    public ChatPage()
     {
-        public ChatPage()
-        {
-            this.InitializeComponent();
-            ShowWelcomeMessage();
-        }
+        this.InitializeComponent();
 
-        /// <summary>
-        /// Відображає вітальне повідомлення у списку повідомлень.
-        /// </summary>
-        public void ShowWelcomeMessage()
-        {
-            var resourceLoader = new ResourceLoader();
-            string welcomeMessage = resourceLoader.GetString("WelcomeMessage");
-            AddMessageToListBox(welcomeMessage, HorizontalAlignment.Left);
-        }
+    }
 
-        /// <summary>
-        /// Обробляє подію натискання клавіші Enter у полі введення повідомлення.
-        /// </summary>
-        private void MessageInput_KeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+    private void MessageInput_KeyDown(object sender, KeyRoutedEventArgs e)
+    {
+        if (e.Key == Windows.System.VirtualKey.Enter)
         {
-             if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                SendMessageInChatButton_Click(sender, e);
-            }
+            SendMessageInChatButton_Click(sender, e);
         }
+    }
 
-        /// <summary>
-        /// Обробляє подію натискання кнопки "Відправити" у чаті.
-        /// </summary>
-        /// <param name="sender">Джерело події, зазвичай елемент, який викликав подію.</param>
-        /// <param name="e">Дані події, що містять інформацію про подію.</param>
-        public void SendMessageInChatButton_Click(object sender, RoutedEventArgs e)
+    public void SendMessageInChatButton_Click(object sender, RoutedEventArgs e)
+    {
+        string userMessage = MessageInput.Text;
+        if (string.IsNullOrWhiteSpace(userMessage)) return;
+
+        AddMessageToListBox(userMessage, HorizontalAlignment.Right);
+
+        string botMessage = "This is a bot response";
+        AddMessageToListBox(botMessage, HorizontalAlignment.Left);
+    }
+
+    public void AddMessageToListBox(string message, HorizontalAlignment alignment)
+    {
+        var chatMessageControl = new MessageUserControl(message);
+        var listBoxItem = new ListBoxItem
         {
-            string userMessage = MessageInput.Text;
-            if (userMessage == "clear") return;
-            if (!string.IsNullOrWhiteSpace(userMessage))
-            {
-                AddMessageToListBox(userMessage, HorizontalAlignment.Right);
-
-                string botMessage = "This is a bot response";
-                AddMessageToListBox(botMessage, HorizontalAlignment.Left);
-            }
-        }
-
-        /// <summary>
-        /// Додає повідомлення до списку повідомлень у чаті.
-        /// </summary>
-        /// <param name="message">Текст повідомлення.</param>
-        /// <param name="alignment">Розташування в ListBox.</param>
-        public void AddMessageToListBox(string message, HorizontalAlignment alignment)
-        {
-            var chatMessageControl = new MessageUserControl(message);
-            var listBoxItem = new ListBoxItem
-            {
-                Content = chatMessageControl,
-                HorizontalContentAlignment = alignment
-            };
-            MessageListBox.Items.Add(listBoxItem);
-            MessageListBox.ScrollIntoView(listBoxItem);
-        }
-
-        /// <summary>
-        /// Отримує повідомлення від бота і додає його до списку повідомлень.
-        /// </summary>
-        /// <param name="message">Текст повідомлення.</param>
-        public void ReceiveMessage(string message)
-        {
-            MessageListBox.Items.Add(message);
-        }
+            Content = chatMessageControl,
+            HorizontalContentAlignment = alignment
+        };
+        MessageListBox.Items.Add(listBoxItem);
+        MessageListBox.ScrollIntoView(listBoxItem);
     }
 }

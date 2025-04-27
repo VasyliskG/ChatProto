@@ -49,6 +49,9 @@ namespace ChatProto.Pages
             else
             {
                 Frame.Navigate(typeof(AccountPage));
+                App.MainWindowRef.IsUserLoggedIn = true;
+               // App.MainWindowRef.ChatHistoriTextBlock.Visibility = Visibility.Collapsed;
+               // App.MainWindowRef.ChatHistoriGrid.Visibility = Visibility.Visible;
                 //LoginErrorTextBlock.Visibility = Visibility.Visible;
             }
         }

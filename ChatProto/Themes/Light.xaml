@@ -3,6 +3,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="BgColorBrush" Color="#101820" />
     <Color x:Key="DarkHighlightColor">#0b3114</Color>
-    <Color x:Key="HoverColor">#e8ede5</Color>
+    <Color x:Key="HoverColor">White</Color>
     <Color x:Key="SubTextColor">#8d998e</Color>
 </ResourceDictionary>

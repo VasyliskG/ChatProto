@@ -5,7 +5,7 @@ namespace ChatProto;
 public partial class App : Application
 {
     public static AuthService AuthService { get; private set; } = null!;
-
+    public static MainWindow MainWindowRef { get; private set; }
     public static MainWindow MainWindow { get; private set; } = null!;
 
     public App()
@@ -25,6 +25,7 @@ public partial class App : Application
         }
 
         MainWindow = new MainWindow();
+        MainWindowRef = MainWindow;
         MainWindow.InitializeTitleBar();
         MainWindow.Activate();
     }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using ChatProto.Helpers;
 using ChatProto.Pages;
 using ChatProto.Services;
@@ -10,9 +13,12 @@ namespace ChatProto;
 
 public sealed partial class MainWindow : Window
 {
+    public bool IsUserLoggedIn { get; set; } = true;
+
     public MainWindow()
     {
         this.InitializeComponent();
+
     }
 
     /// <summary>
@@ -72,7 +78,7 @@ public sealed partial class MainWindow : Window
 
                     break;
                 case "ChatPage":
-                    ContentFrame.Navigate(typeof(ChatPage));
+                    ContentFrame.Navigate(typeof(ChatPage), this);
                     break;
             }
 
@@ -87,7 +93,7 @@ public sealed partial class MainWindow : Window
     {
         if (ContentFrame.Content is SettingPage) return;
 
-        ContentFrame.Navigate(typeof(SettingPage));
+        ContentFrame.Navigate(typeof(SettingPage), this);
     }
 
     /// <summary>
@@ -97,7 +103,7 @@ public sealed partial class MainWindow : Window
     {
         if (ContentFrame.Content is RegisterPage) return;
 
-        ContentFrame.Navigate(typeof(RegisterPage));
+        ContentFrame.Navigate(typeof(RegisterPage), this);
     }
 
     /// <summary>
@@ -144,4 +150,6 @@ public sealed partial class MainWindow : Window
 
         ContentFrame.Navigate(typeof(ChatPage));
     }
+
+    
 }

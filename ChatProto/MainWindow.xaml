@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Title="Custom Title Bar">
 
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" Background="White">
         <Grid.Resources>
             <Storyboard x:Key="ShowSidebarAnimation">
                 <DoubleAnimation
@@ -25,7 +25,7 @@
                 Storyboard.TargetProperty="X"
                 From="0" To="-300"
                 Duration="0:0:0.5" />
-            </Storyboard>
+            </Storyboard> 
 
             <Storyboard x:Key="ExpandSidebarAnimation">
                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SidebarColumn" Storyboard.TargetProperty="Width">
@@ -78,8 +78,14 @@
                 <Grid.RenderTransform>
                     <TranslateTransform x:Name="SidebarTransform" X="-300" />
                 </Grid.RenderTransform>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="55" />
+                </Grid.RowDefinitions>
 
-                <TextBlock x:Name="ChatHistoriTextBlock" 
+                <TextBlock x:Name="ChatHistoriTextBlock" Visibility="Collapsed"
+                    Grid.Column="0"
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
                     TextAlignment="Center"
@@ -90,7 +96,31 @@
                     <Run x:Uid="ChatHistoryDescription" />
                 </TextBlock>
 
-                <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Histori chats" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+
+                <Grid x:Name="ChatHistoriGrid" Grid.Row="1" Visibility="Visible">
+                    <ListView x:Name="MyListView"
+                        SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="9" Background="Aqua">
+                                    <TextBlock Text="" Foreground="Black"/>
+
+                                    <Grid.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="Поширити" Icon="Share"/>
+                                            <MenuFlyoutItem Text="Перейменувати" Icon="Edit"/>
+                                            <MenuFlyoutItem Text="Архівувати" Icon="Save"/>
+                                            <MenuFlyoutItem Text="Видалити" Icon="Delete" Foreground="Red"/>
+                                        </MenuFlyout>
+                                    </Grid.ContextFlyout>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="2">
                     <Button x:Name="LoginButton" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Bottom" GettingFocus="LoginButton_GettingFocus">
@@ -104,7 +134,7 @@
                 </StackPanel>
             </Grid>
             <Grid x:Name="ContentArea" Grid.Column="1">
-                <Border x:Name="ContentBorder" Background="LightGray" Margin="10" Padding="8">
+                <Border x:Name="ContentBorder" Background="White" Margin="10" Padding="8">
                     <HyperlinkButton x:Name="ContentTitle" x:Uid="MainTextTitle" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContentTitle_Click"/>
                 </Border>
             </Grid>
